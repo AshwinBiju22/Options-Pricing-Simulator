@@ -38,6 +38,15 @@ struct OrderBook {
         return best;
     }
 
+    // Remove a resting order by id. Returns true if it was found and removed.
+    bool cancel(std::uint64_t id) {
+        for (int i = 0; i < (int)bids.size(); i++)
+            if (bids[i].id == id) { bids.erase(bids.begin() + i); return true; }
+        for (int i = 0; i < (int)asks.size(); i++)
+            if (asks[i].id == id) { asks.erase(asks.begin() + i); return true; }
+        return false;   // no resting order with that id
+    }
+
     void submit(Order incoming) {
         if (incoming.side == Side::Buy) {
             // Match against asks while the buy crosses the cheapest ask
@@ -98,5 +107,19 @@ int main() {
 
     std::cout << "\nBook after:\n";
     book.print();
+
+    book.submit({1, Side::Buy,  OrderType::Limit, 10000, 100, 0});
+    book.submit({2, Side::Buy,  OrderType::Limit,  9950, 200, 1});
+    book.submit({3, Side::Sell, OrderType::Limit, 10100, 150, 2});
+
+    std::cout << "Book with 3 resting orders:\n";
+    book.print();
+
+    std::cout << "\nCancel order #2 -> " << (book.cancel(2) ? "found & removed" : "not found") << "\n";
+    std::cout << "Cancel order #99 -> " << (book.cancel(99) ? "found & removed" : "not found") << "\n";
+
+    std::cout << "\nBook after cancelling #2:\n";
+    book.print();
+    
     return 0;
 }
