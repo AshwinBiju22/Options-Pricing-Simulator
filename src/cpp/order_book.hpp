@@ -1,7 +1,7 @@
 #pragma once
 #include <cstdint>
 #include <vector>
-#include <algorithm>   // std::min
+#include <algorithm>
 
 namespace qe {
 
@@ -16,7 +16,7 @@ struct Order {
     std::uint64_t quantity;
 };
 
-// A record of one fill.
+// A record of one fill
 struct Trade {
     std::uint64_t aggressor_id;   // the incoming order that crossed the book
     std::uint64_t resting_id;     // the resting order it matched against
@@ -34,8 +34,8 @@ struct OrderBook {
     std::vector<Order> bids;
     std::vector<Order> asks;
     std::uint64_t next_id = 1;    // engine-managed; increments on every submit
-
-    // ---- top of book (internal index helpers; -1 if that side is empty) ----
+    
+    // The const after the function means that it won't change the OrderBook object its called from
     int best_bid_index() const {
         if (bids.empty()) return -1;
         int best = 0;
