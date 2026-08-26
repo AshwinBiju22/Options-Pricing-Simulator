@@ -2,7 +2,7 @@ import streamlit as st
 from simulation import run_simulation
 
 st.title("Options Market-Making Simulator")
-st.caption("A C++ matching engine, a Black-Scholes pricer, and an inventory-skewing market maker.")
+st.caption("A matching engine, using a Black-Scholes pricer, and an inventory-skewing market maker")
 
 # --- controls in the sidebar ---
 st.sidebar.header("Parameters")

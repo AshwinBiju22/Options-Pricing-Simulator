@@ -12,11 +12,11 @@ def black_scholes(S, K, T, r, sigma, kind):
     """
     Black-Scholes price of a European option
 
-    S     : spot price of the underlying
-    K     : strike price
-    T     : time to expiry, in years
-    r     : risk-free interest rate (0.05 = 5%)
-    sigma : volatility (0.20 = 20%)
+    S     : spot price of the underlying, higher spot -> call worth more (closer to/deeper in the money), put worth less
+    K     : strike price, higher strike -> call worth less (harder to end up above it), put worth more
+    T     : time to expiry, in years, more time -> more chance to move favourably -> both call and put worth more
+    r     : risk-free interest rate (0.05 = 5%), higher rate -> call worth more, put worth less (discounts the strike you'd pay/receive)
+    sigma : volatility (0.20 = 20%), higher vol -> bigger swings both ways -> both call and put worth more
     kind  : "call" or "put"
     """
     d1 = (math.log(S / K) + (r + 0.5 * sigma ** 2) * T) / (sigma * math.sqrt(T))

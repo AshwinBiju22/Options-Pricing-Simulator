@@ -8,9 +8,12 @@ class MarketMaker:
     """
 
     def __init__(self, half_spread, skew):
-        self.half_spread = half_spread   # base distance from fair value to each quote
-        self.skew = skew                 # how hard to lean quotes against inventory
-        self.inventory = 0               # net option position (+ = long, - = short)
+        # Wider spread means more profit per trade but less fills, Earn more per trade vs Trade more often
+        self.half_spread = half_spread # profit dial
+        # how hard to lean quotes against inventory
+        self.skew = skew # risk dial
+        # Net position, + means long, - means short
+        self.inventory = 0               
 
     def quote(self, S, K, T, r, sigma, kind):
         """
